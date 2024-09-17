@@ -1,0 +1,18 @@
+book_recommendation_app/
+│
+├── main.py                # Entry point of the application
+├── model/
+│   ├── __init__.py        # Makes this directory a package
+│   ├── book_model.py      # Contains the BookModel class
+│   ├── user_model.py      # Contains the UserModel class (if needed)
+│   └── rating_model.py     # Contains the RatingModel class (if needed)
+│
+├── view/
+│   ├── __init__.py        # Makes this directory a package
+│   ├── main_view.py       # Contains the MainView class
+│   ├── book_entry_view.py  # Contains the BookEntryView class
+│   └── search_view.py      # Contains the SearchView class
+│
+└── controller/
+    ├── __init__.py        # Makes this directory a package
+    └── main_controller.py  # Contains the MainController class
