@@ -1,5 +1,6 @@
 
 import sqlite3
+from datetime import datetime
 
 class ReadingListModel:
     def __init__(self, db_name='/Book_Store.db'):
@@ -10,14 +11,42 @@ class ReadingListModel:
     def create_table(self):
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS Reading_Lists (
-                list_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                list_id TEXT,
                 user_id INTEGER,
-                book_id INTEGER
+                book_id INTEGER,
+                PRIMARY KEY (list_id, user_id, book_id)
             );
         ''')
         self.connection.commit()
 
     def add_reading_list(self, list_id, book_id, user_id):
+
+        # LOGIC TO FETCH USER_ID FROM THE USER WE'RE LOGGED INTO
+
+        # fetching the list_id associated with our user
+        self.cursor.execute('''
+            SELECT DISTINCT 
+                list_id,
+            FROM
+                Users
+            WHERE
+                user_id = ?
+        ''', (user_id,))
+
+        list_id = self.cursor.fetchone()
+
+        # Check if a list_id was found
+        if list_id is not None:
+            list_id = list_id[0]  # Extract the list_id from the tuple
+        else:
+            error = ("It seems there was an error fetching your list ID.")
+            # CONTINUE HERE, ONCE GUI IS SET, PRINT OUT
+
+        # Find the book_id by creating an input field where you'll be able to search by title, author, or ID
+        # Logic to choose book_id if given as input
+        # Else, Need to fetch book_id from books table using title and author
+
+
         self.cursor.execute('''
             INSERT INTO Reading_lists (list_id, book_id, user_id)
             VALUES (?, ?, ?)

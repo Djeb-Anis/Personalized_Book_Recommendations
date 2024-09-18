@@ -5,6 +5,10 @@
 ### Features
 
 1. **User Profiles**: Allow users to create profiles where they can log their favorite genres, authors, and books they’ve read.
+   *Note, there will be a privileged user, which can do CRUD operations on user accounts and history*
+
+**Either use private methods or simply modify the GUI as agreed**
+
 
 2. **Book Database**: Use an SQL database to store book information, including:
    - Title
@@ -14,13 +18,18 @@
    - User ratings
    - Mood tags (e.g., uplifting, thought-provoking, etc.)
 
+
 3. **Recommendation Engine**: Implement a simple algorithm that suggests books based on user preferences and past ratings. For example, if a user rates a mystery novel highly, recommend similar books.
+
 
 4. **Search Functionality**: Allow users to search for books by title, author, or genre.
 
+
 5. **Reading List**: Users can create a reading list to keep track of books they want to read in the future.
 
+
 6. **User Ratings and Reviews**: Users can rate books and leave reviews, which can help improve recommendations for others.
+
 
 7. **Mood-Based Recommendations**: Allow users to select their current mood and receive book suggestions that match that mood.
 

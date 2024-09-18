@@ -19,11 +19,11 @@ class BookModel:
         ''')
         self.connection.commit()
 
-    def add_book(self,book_id,  title, author, genre, summary, mood_tags):
+    def add_book(self,  title, author, genre, summary, mood_tags):
         self.cursor.execute('''
             INSERT INTO Books (title, author, genre, summary, mood_tags)
             VALUES (?, ?, ?, ?, ?)
-        ''', (book_id, title, author, genre, summary, mood_tags))
+        ''', (title, author, genre, summary, mood_tags))
         self.connection.commit()
 
     def delete_book(self,book_id):
