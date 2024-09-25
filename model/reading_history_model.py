@@ -1,6 +1,6 @@
 
 import sqlite3
-
+#
 class ReadingHistoryModel:
     def __init__(self, db_name = '/Book_Store.db'):
         self.connection = sqlite3.connect(db_name)
