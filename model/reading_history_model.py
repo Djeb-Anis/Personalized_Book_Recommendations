@@ -22,11 +22,11 @@ class ReadingHistoryModel:
     # Reading history is added automatically
     # Each entry to a reading list will add a row and fill entry_id, user_id, book_id, and date_added_to_reading_list
     # Each entry to ratings, will fill date_rated
-    def delete_history_entry(self, list_id):
+    def delete_history_entry(self, entry_id):
         self.cursor.execute('''
             DELETE FROM Reading_lists 
-            WHERE list_id = ?
-            '''), (list_id) # Not sure about this
+            WHERE entry_id = ?
+            '''), (entry_id) # Since we'll be selecting with the mouse which entry to delete, I'll make sure we can fetch it using PyQT
         self.connection.commit()
 
     def modify_reading_list(self):

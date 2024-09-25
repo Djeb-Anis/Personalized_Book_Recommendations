@@ -10,7 +10,7 @@ class ReadingListModel:
 
     def create_table(self):
         self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Reading_Lists (
+            CREATE TABLE IF NOT EXISTS Reading_List (
                 list_id TEXT,
                 user_id INTEGER,
                 book_id INTEGER,
@@ -22,6 +22,7 @@ class ReadingListModel:
     def add_reading_list(self, list_id, book_id, user_id):
 
         # LOGIC TO FETCH USER_ID FROM THE USER WE'RE LOGGED INTO
+        # WILL NEED A LOGIN PAGE
 
         # fetching the list_id associated with our user
         self.cursor.execute('''
@@ -44,7 +45,7 @@ class ReadingListModel:
 
         # Find the book_id by creating an input field where you'll be able to search by title, author, or ID
         # Logic to choose book_id if given as input
-        # Else, Need to fetch book_id from books table using title and author
+        # This interactive window is in the home page
 
 
         self.cursor.execute('''
@@ -53,11 +54,21 @@ class ReadingListModel:
         ''', (list_id, book_id,  user_id))
         self.connection.commit()
 
-    def delete_reading_list(self,list_id):
+
+        # Saving the date, in order to add it to the history table
+        current_date = str(datetime.now())
+
+        # Adding an entry to the reading history table
+        self.cursor.execute('''
+            INSERT INTO Reading_history (user_id, book_id, date_added_to_reading_list)
+            VALUES (?, ?, ?)
+        ''',(user_id, book_id, current_date))
+
+    def delete_reading_list(self,list_id, user_id, book_id):
         self.cursor.execute('''
         DELETE FROM Reading_lists 
-        WHERE list_id = ?
-        '''), (list_id)
+        WHERE list_id = ? AND user_id = ? AND book_id = ?
+        '''), (list_id, user_id, book_id)
         self.connection.commit()
 
     def modify_reading_list(self):

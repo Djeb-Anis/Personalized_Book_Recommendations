@@ -25,7 +25,7 @@ class UserModel:
         password_hash = hash(password_clear)
 
         self.cursor.execute('''
-            INSERT INTO Users (user_id, username, password_hash, email)
+            INSERT INTO Users (username, password_hash, email)
             VALUES (?, ?, ?, ?)
         ''', (username, password_hash, email))
         self.connection.commit()
@@ -61,7 +61,7 @@ class UserModel:
             self.connection.commit()
 
         else:
-            error = ("No user found with the provided password hash.")
+            error = ("No user found with the provided password.")
             # CONTINUE HERE, ONCE GUI IS SET, PRINT OUT ERROR
 
     def delete_user(self,user_id):
