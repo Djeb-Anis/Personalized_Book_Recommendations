@@ -2,7 +2,7 @@ import sys # This is imported for testing purposes only
 from login_overlay import LoginOverlay  # Import the LoginOverlay class, don't know if fits the Model, Controller, View methodology
 from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QLabel
 
-class home_window(QMainWindow):
+class HomeWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -81,7 +81,7 @@ class home_window(QMainWindow):
 # This code will need to go when I'm done coding, only the controller can call these windows
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    test_window = home_window()
+    test_window = HomeWindow()
     test_window.show()
     sys.exit(app.exec())
 # ------------------------Testing Code------------------------
