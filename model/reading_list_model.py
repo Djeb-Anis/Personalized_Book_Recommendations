@@ -1,10 +1,19 @@
 
 import sqlite3
 from datetime import datetime
+import os
 
 class ReadingListModel:
     def __init__(self, db_name='/Book_Store.db'):
-        self.connection = sqlite3.connect(db_name)
+
+        # Get the directory of the current script
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Create the full path to the database file in the parent directory
+        db_path = os.path.join(base_dir, '..', db_name)
+
+        # Connect to my db
+        self.connection = sqlite3.connect(db_path)
         self.cursor = self.connection.cursor()
         self.create_table()
 

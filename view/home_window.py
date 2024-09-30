@@ -1,11 +1,20 @@
 import sys # This is imported for testing purposes only
 from login_overlay import LoginOverlay  # Import the LoginOverlay class, don't know if fits the Model, Controller, View methodology
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QLabel
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QTableView
+
+# Importing the controller
+from controller.main_controller import MainController
 
 class HomeWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+
+        # Creating an instance of my MainController Class I can manipulate
+        main_controller = MainController()
+
+        # Creating all SQL tables needed
+        main_controller.AllSqlTablesCreation()
 
         # Création d'une liste pour garder les variables contenant les autres fenêtres vivantes, might need it
         self.other_windows = []
@@ -63,9 +72,17 @@ class HomeWindow(QMainWindow):
         # Adding to the layout
         self.vertical_layout.addLayout(self.horizontal_up_layout) # Nested layout
 
-        # Need the window content
-        # THIS IS WHERE THE CONTENT FROM BOOK_MODEL WILL BE PLACED
+        # Creating a variable on which the controller can assign its Sql table model
+        imported_model = main_controller.DisplayBooksMainWindow()
 
+        # displaying said sql table model
+        self.sql_table_view = QTableView()
+        self.sql_table_view.setModel(imported_model)
+
+        # Adding the table to my main layout
+        self.vertical_layout.addLayout(self.sql_table_view)
+
+        # Adding to the layout
         self.vertical_layout.addLayout(self.horizontal_down_layout) # Nested layout
 
         # Set the layout for the central widget
