@@ -78,9 +78,10 @@ class HomeWindow(QMainWindow):
         # displaying said sql table model
         self.sql_table_view = QTableView()
         self.sql_table_view.setModel(imported_model)
+        self.sql_table_view.setWindowTitle("Books Database")
 
         # Adding the table to my main layout
-        self.vertical_layout.addLayout(self.sql_table_view)
+        self.vertical_layout.addWidget(self.sql_table_view)
 
         # Adding to the layout
         self.vertical_layout.addLayout(self.horizontal_down_layout) # Nested layout

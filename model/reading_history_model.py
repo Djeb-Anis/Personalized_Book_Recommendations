@@ -3,7 +3,7 @@ import sqlite3
 import os
 
 class ReadingHistoryModel:
-    def __init__(self, db_name = '/Book_Store.db'):
+    def __init__(self, db_name = 'Book_Store.db'):
 
         # Get the directory of the current script
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -12,14 +12,16 @@ class ReadingHistoryModel:
         db_path = os.path.join(base_dir, '..', db_name)
 
         # Connect to my db
-        self.connection = sqlite3.connect(db_path)
-        self.cursor = self.connection.cursor()
-        self.create_table()
+        try:
+            self.connection = sqlite3.connect(db_path)
+            self.cursor = self.connection.cursor()
+        except Exception as e:
+            print("Error connecting to database:", e)
 
-    def create_table(self):
+    def create(self):
         self.cursor.execute('''
                 CREATE TABLE IF NOT EXISTS Reading_history (
-                    entry_id TEXT PRIMARY KEY AUTOINCREMENT,
+                    entry_id INTEGER PRIMARY KEY AUTOINCREMENT,
                     user_id INTEGER,
                     book_id INTEGER,
                     date_added_to_reading_list TEXT,
