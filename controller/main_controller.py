@@ -2,6 +2,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtSql import QSqlDatabase, QSqlTableModel
+from PyQt6.QtCore import Qt, QRegularExpression
 import os
 
 
@@ -15,6 +16,7 @@ from model.reading_list_model import ReadingListModel
 from model.users_model import UserModel
 
 # View
+from view.home_window import HomeWindow
 
 
 
@@ -64,8 +66,21 @@ class MainController:
         return self.sql_table_model
 
 
+    def filter_table(self, text, proxy_model):
+        # Set the filter fixed string to the proxy model
+        proxy_model.setFilterFixedString(text)
+        # WOULD LIKE TO USE REGEX
+        # But the setFilterRegExp method of the QSortFilterProxyModel object doesn't seem to exist??
+        # My QSortFilterProxyModel object is in home_window in the load_sql_model method
 
 
+# ------------------------Main Application------------------------
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    main_controller = MainController()
+    main_window = HomeWindow(main_controller)
+    main_window.show()
+    sys.exit(app.exec())
 
 
 
