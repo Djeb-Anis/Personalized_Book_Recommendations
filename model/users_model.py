@@ -21,8 +21,9 @@ class UserModel:
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS Users (
                 user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username INTEGER,
+                username TEST,
                 password_hash TEXT,
+                password_clear TEXT,
                 email TEXT,
                 list_id TEXT
             );
@@ -33,19 +34,22 @@ class UserModel:
 
     def add_user(self, username, password_clear, email):
 
+        # Will need logic to check for duplicates in the database
+
+
         # password hash
         password_hash = hash(password_clear)
 
         self.cursor.execute('''
-            INSERT INTO Users (username, password_hash, email)
+            INSERT INTO Users (username, password_hash, password_clear, email)
             VALUES (?, ?, ?, ?)
-        ''', (username, password_hash, email))
+        ''', (username, password_hash, password_clear, email))
         self.connection.commit()
 
         # fetching the user_id created
         self.cursor.execute('''
             SELECT DISTINCT 
-                user_id,
+                user_id
             FROM
                 Users
             WHERE
@@ -80,7 +84,7 @@ class UserModel:
         self.cursor.execute('''
         DELETE FROM Users 
         WHERE user_id = ?
-        '''), (user_id)
+        ''', (user_id,))
         self.connection.commit()
 
     def modify_user(self):
@@ -88,9 +92,13 @@ class UserModel:
         # Will create a GUI for this, therefore, the logic can't be written here yet
 
 
-    def get_users(self):
-        self.cursor.execute('SELECT * FROM Users')
-        return self.cursor.fetchall()
+    def get_user(self, username):
+        self.cursor.execute('''
+        SELECT * FROM Users
+        WHERE user_id = ?
+        ''', (username,))
+
+        return self.cursor.fetchone()
 
     def close(self):
         self.connection.close()

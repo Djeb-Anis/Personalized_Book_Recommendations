@@ -29,6 +29,7 @@ class MoodTagModel:
 
     def add_mood_tag(self, new_mood_tag):
         pass
+
     def modify_mood_tag(self):
         pass
         # Will create a GUI for this

@@ -1,5 +1,5 @@
 import sys # This is imported for testing purposes only
-from login_overlay import LoginOverlay  # Import the LoginOverlay class, don't know if fits the Model, Controller, View methodology
+#from login_overlay import LoginOverlay  # Import the LoginOverlay class, don't know if fits the Model, Controller, View methodology
 from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QLineEdit, QTableView
 from PyQt6.QtCore import QSortFilterProxyModel
 
@@ -9,11 +9,14 @@ class HomeWindow(QMainWindow):
     def __init__(self, controller):
         super().__init__()
 
-        # Creating an instance of my MainController Class I can manipulate
+        # Storing the controller instance
         self.controller = controller
 
         # Creating all SQL tables needed
-        main_controller.AllSqlTablesCreation()
+        self.controller.AllSqlTablesCreation()
+
+        # Creating the initial root user
+        self.controller.InitialRootUserCreation()
 
         # Création d'une liste pour garder les variables contenant les autres fenêtres vivantes, might need it
         self.other_windows = []
@@ -99,11 +102,8 @@ class HomeWindow(QMainWindow):
         # Connecting the search bar to my filter function
         self.search_bar.textChanged.connect(self.on_search_text_changed)
 
-        # ------------------------Login Call------------------------
-
         # Create and show the login overlay
-        self.login_overlay = LoginOverlay(self)
-        self.login_overlay.show()  # Show the login overlay
+        self.controller.LoginOverlayShow()
 
         # ------------------------Search Bar Functions------------------------
 

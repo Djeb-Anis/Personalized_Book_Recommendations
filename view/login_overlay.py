@@ -2,9 +2,14 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QGraphicsBlurEffect
 from PyQt6.QtCore import Qt
 
+
 class LoginOverlay(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, controller, parent=None):
         super().__init__(parent)
+
+        # Storing the controller instance
+        self.controller = controller
+
 
         # Will need to style these elements appropriately
         self.setStyleSheet(""" 
@@ -37,7 +42,7 @@ class LoginOverlay(QWidget):
         self.login_layout.addWidget(self.login_status)
 
         # Connect the login button to a method
-        self.login_button.clicked.connect(self.handle_login)
+        self.login_button.clicked.connect(self.controller.handle_login(self.username_input, self.password_input))
 
     # ------------------------Hide & Show Event------------------------
     # We override the hide and show event methods to apply a QGraphicsBlurEffect to the main window's central widget
@@ -57,15 +62,3 @@ class LoginOverlay(QWidget):
             central_widget.setGraphicsEffect(None)
         super().hideEvent(event)
 
-    # ------------------------Login------------------------
-    def handle_login(self):
-        username = self.username_input.text()
-        password = self.password_input.text()
-
-        # Example check
-        # Will need to add my authentication logic here and replace the if statement
-        if username == "admin" and password == "password":
-            self.login_status.setText("Login successful!")
-            self.hide()  # Hide the overlay on successful login
-        else:
-            self.login_status.setText("Invalid credentials!")
